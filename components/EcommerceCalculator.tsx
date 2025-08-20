@@ -39,8 +39,19 @@ const EcommerceCalculator: React.FC = () => {
     }, [inputs]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: e.target.type === 'number' ? parseFloat(value) || 0 : value }));
+        const { name, value, type } = e.target;
+        if (type === 'number') {
+            if (value === '') {
+                setInputs(prev => ({ ...prev, [name]: '' }));
+            } else {
+                const num = parseFloat(value);
+                if (!isNaN(num)) {
+                    setInputs(prev => ({ ...prev, [name]: num }));
+                }
+            }
+        } else {
+            setInputs(prev => ({ ...prev, [name]: value }));
+        }
     };
     
     const handleScenarioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +65,27 @@ const EcommerceCalculator: React.FC = () => {
     };
 
     const calculations = useMemo(() => {
-        const { aov, ordersPerMonth, cogsPercentage, shippingSubsidy, paymentProcessingType, paymentProcessingCustomPercent, paymentProcessingCustomFee, returnsAllowance, returnsAllowanceType, pickPackOps, monthlyAdSpend, cpc, conversionRate, agencyFeeType, agencyPercentage, agencyFlatFee, setupFees, toolsSoftware, creativeCosts } = inputs;
+        const num = (v: number | '') => Number(v) || 0;
+
+        const aov = num(inputs.aov);
+        const ordersPerMonth = num(inputs.ordersPerMonth);
+        const cogsPercentage = num(inputs.cogsPercentage);
+        const shippingSubsidy = num(inputs.shippingSubsidy);
+        const { paymentProcessingType } = inputs;
+        const paymentProcessingCustomPercent = num(inputs.paymentProcessingCustomPercent);
+        const paymentProcessingCustomFee = num(inputs.paymentProcessingCustomFee);
+        const returnsAllowance = num(inputs.returnsAllowance);
+        const { returnsAllowanceType } = inputs;
+        const pickPackOps = num(inputs.pickPackOps);
+        const monthlyAdSpend = num(inputs.monthlyAdSpend);
+        const cpc = num(inputs.cpc);
+        const conversionRate = num(inputs.conversionRate);
+        const { agencyFeeType } = inputs;
+        const agencyPercentage = num(inputs.agencyPercentage);
+        const agencyFlatFee = num(inputs.agencyFlatFee);
+        const setupFees = num(inputs.setupFees);
+        const toolsSoftware = num(inputs.toolsSoftware);
+        const creativeCosts = num(inputs.creativeCosts);
         
         const monthlyRevenue = aov * ordersPerMonth;
         const cogsAmount = aov * (cogsPercentage / 100);
