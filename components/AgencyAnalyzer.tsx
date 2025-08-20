@@ -40,8 +40,19 @@ const AgencyAnalyzer: React.FC = () => {
     }, [inputs]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: e.target.type === 'number' ? parseFloat(value) || 0 : value }));
+        const { name, value, type } = e.target;
+        if (type === 'number') {
+            if (value === '') {
+                setInputs(prev => ({ ...prev, [name]: '' }));
+            } else {
+                const num = parseFloat(value);
+                if (!isNaN(num)) {
+                    setInputs(prev => ({ ...prev, [name]: num }));
+                }
+            }
+        } else {
+            setInputs(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleInfoClick = (key: string) => {
@@ -50,7 +61,20 @@ const AgencyAnalyzer: React.FC = () => {
     };
 
     const calculations = useMemo(() => {
-        const { monthlyAdSpend, monthlyRevenueFromAds, contributionMargin, agencyFeeType, basePercentage, monthlyRetainer, setupFees, additionalToolCosts } = inputs;
+        const num = (v: number | '') => Number(v) || 0;
+
+        const monthlyAdSpend = num(inputs.monthlyAdSpend);
+        const monthlyRevenueFromAds = num(inputs.monthlyRevenueFromAds);
+        const contributionMargin = num(inputs.contributionMargin);
+        const { agencyFeeType } = inputs;
+        const basePercentage = num(inputs.basePercentage);
+        const monthlyRetainer = num(inputs.monthlyRetainer);
+        const setupFees = num(inputs.setupFees);
+        const additionalToolCosts = num(inputs.additionalToolCosts);
+        const brandRoas = num(inputs.brandRoas);
+        const nonBrandRoas = num(inputs.nonBrandRoas);
+        const overallMer = num(inputs.overallMer);
+        const minimumCommitment = num(inputs.minimumCommitment);
         
         let agencyFeeCost = 0;
         if (agencyFeeType === 'percentage') {
@@ -71,16 +95,16 @@ const AgencyAnalyzer: React.FC = () => {
         const breakEvenROASIncrease = newBreakEvenROAS - baseBreakEvenROAS;
 
         const redFlags = [];
-        if (inputs.brandRoas > 5 && inputs.nonBrandRoas < 4 && ((inputs.brandRoas + inputs.nonBrandRoas) / 2) > 4) {
+        if (brandRoas > 5 && nonBrandRoas < 4 && ((brandRoas + nonBrandRoas) / 2) > 4) {
             redFlags.push("Blended brand/non-brand reporting might be hiding poor non-brand performance.");
         }
-        if (inputs.overallMer > 0 && contributionMargin > 0 && inputs.overallMer < (1 / (contributionMargin/100))) {
+        if (overallMer > 0 && contributionMargin > 0 && overallMer < (1 / (contributionMargin/100))) {
             redFlags.push("MER tracking indicates you may be losing money overall, even if ROAS looks good.");
         }
         if (feePercentageOfSpend > 15) {
             redFlags.push(`High fee percentage (${formatPercent(feePercentageOfSpend)}) of ad spend.`);
         }
-        if (inputs.minimumCommitment > 6) {
+        if (minimumCommitment > 6) {
             redFlags.push("Long minimum commitment reduces your flexibility.");
         }
 
