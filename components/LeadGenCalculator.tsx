@@ -38,8 +38,19 @@ const LeadGenCalculator: React.FC = () => {
     }, [inputs]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: parseFloat(value) || 0 }));
+        const { name, value, type } = e.target;
+        if (type === 'number') {
+            if (value === '') {
+                setInputs(prev => ({ ...prev, [name]: '' }));
+            } else {
+                const num = parseFloat(value);
+                if (!isNaN(num)) {
+                    setInputs(prev => ({ ...prev, [name]: num }));
+                }
+            }
+        } else {
+            setInputs(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleInfoClick = (key: string) => {
@@ -48,7 +59,17 @@ const LeadGenCalculator: React.FC = () => {
     };
 
     const calculations = useMemo(() => {
-        const { cpc, landingPageConversionRate, leadToSaleCloseRate, avgSaleValue, grossMarginPercentage, monthlyAdSpend, agencyFees, toolsSoftware, creativeLandingPages } = inputs;
+        const num = (v: number | '') => Number(v) || 0;
+
+        const cpc = num(inputs.cpc);
+        const landingPageConversionRate = num(inputs.landingPageConversionRate);
+        const leadToSaleCloseRate = num(inputs.leadToSaleCloseRate);
+        const avgSaleValue = num(inputs.avgSaleValue);
+        const grossMarginPercentage = num(inputs.grossMarginPercentage);
+        const monthlyAdSpend = num(inputs.monthlyAdSpend);
+        const agencyFees = num(inputs.agencyFees);
+        const toolsSoftware = num(inputs.toolsSoftware);
+        const creativeLandingPages = num(inputs.creativeLandingPages);
 
         const currentCPL = landingPageConversionRate > 0 ? cpc / (landingPageConversionRate / 100) : Infinity;
         const grossProfitPerSale = avgSaleValue * (grossMarginPercentage / 100);
