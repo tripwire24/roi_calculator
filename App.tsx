@@ -74,8 +74,8 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="text-center py-8 border-t border-slate-200 mt-16">
-        <p className="text-slate-500">&copy; {new Date().getFullYear()} AdROI Calculator. All rights reserved.</p>
+      <footer className="text-center py-4 border-t border-slate-200 mt-16">
+        <p className="text-slate-500">&copy; {new Date().getFullYear()} AdROI Calculator All rights reserved Tripwire Digital LLC. </p>
       </footer>
     </div>
   );
