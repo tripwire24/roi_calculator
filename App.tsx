@@ -18,10 +18,10 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
       <Header />
 
-      <main className="container mx-auto px-4 py-8 md:py-16">
+      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
         {/* Hero Section */}
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h1 className="text-4xl md:text-6xl font-extrabold text-slate-800 mb-4 tracking-tight">
@@ -74,8 +74,8 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="text-center py-4 border-t border-slate-200 mt-16">
-        <p className="text-slate-500">&copy; {new Date().getFullYear()} AdROI Calculator All rights reserved Tripwire Digital LLC. </p>
+      <footer className="text-center py-4 border-t border-slate-200">
+        <p className="text-slate-500">&copy; {new Date().getFullYear()} Tripwire Digital LLC. All rights reserved.</p>
       </footer>
     </div>
   );
