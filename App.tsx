@@ -18,10 +18,10 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
       <Header />
 
-      <main className="container mx-auto px-4 sm:px-6 py-8 md:py-12">
+      <main className="container mx-auto px-4 sm:px-6 py-8 md:py-12 flex-grow">
         {/* Hero Section */}
         <div className="text-center max-w-4xl mx-auto mb-12 md:mb-16">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-800 mb-4 tracking-tight">
@@ -74,7 +74,7 @@ const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="text-center py-8 border-t border-slate-200 mt-16">
+      <footer className="text-center py-6 border-t border-slate-200 mt-12">
         <p className="text-slate-500">&copy; {new Date().getFullYear()} AdROI Calculator. All rights reserved.</p>
       </footer>
     </div>
