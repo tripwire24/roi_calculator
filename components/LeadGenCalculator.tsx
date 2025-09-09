@@ -92,7 +92,7 @@ const LeadGenCalculator: React.FC = () => {
     return (
         <>
         {modalContent && <InfoModal content={modalContent} onClose={() => setModalContent(null)} />}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Input Section */}
             <div className="space-y-6">
                 <Card title="Lead & Sales Metrics">
@@ -113,7 +113,7 @@ const LeadGenCalculator: React.FC = () => {
             {/* Output Section */}
             <div className="space-y-6">
                 <Card title="Lead Economics">
-                     <div className="grid grid-cols-2 gap-4">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Current Cost Per Lead" value={formatCurrency(calculations.currentCPL)} status={calculations.status} infoKey="currentCPL" onInfoClick={handleInfoClick} />
                         <MetricCard title="Break-Even CPL" value={formatCurrency(calculations.breakEvenCPL)} status="warning" infoKey="breakEvenCPL" onInfoClick={handleInfoClick} />
                     </div>
@@ -121,7 +121,7 @@ const LeadGenCalculator: React.FC = () => {
                 </Card>
                 <Card title="Monthly Performance">
                      <MetricCard title="Net Marketing Profit" value={formatCurrency(calculations.netProfit)} status={calculations.netProfit > 0 ? 'success' : 'danger'} infoKey="netMarketingProfit" onInfoClick={handleInfoClick} />
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Leads Generated" value={formatNumber(calculations.leadsGenerated)} />
                         <MetricCard title="Sales Closed" value={formatNumber(calculations.salesClosed)} />
                         <MetricCard title="Total Gross Profit" value={formatCurrency(calculations.totalGrossProfit)} />

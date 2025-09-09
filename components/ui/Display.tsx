@@ -60,7 +60,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({ title, value, infoKey, o
         {title}
         {infoKey && onInfoClick && <InfoIcon infoKey={infoKey} onInfoClick={onInfoClick} />}
       </div>
-      <p className={`text-3xl font-extrabold ${statusClasses[status]}`}>{value}</p>
+      <p className={`text-2xl sm:text-3xl font-extrabold ${statusClasses[status]}`}>{value}</p>
     </div>
   );
 };

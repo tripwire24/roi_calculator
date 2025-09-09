@@ -114,7 +114,7 @@ const AgencyAnalyzer: React.FC = () => {
     return (
         <>
         {modalContent && <InfoModal content={modalContent} onClose={() => setModalContent(null)} />}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Input Section */}
             <div className="space-y-6">
                 <Card title="Your Business Metrics">
@@ -145,7 +145,7 @@ const AgencyAnalyzer: React.FC = () => {
             <div className="space-y-6">
                 <Card title="Fee Analysis">
                     <MetricCard title="Total Monthly Agency Cost" value={formatCurrency(calculations.totalMonthlyAgencyCost)} status={calculations.feePercentageOfSpend > 20 ? 'danger' : calculations.feePercentageOfSpend > 15 ? 'warning' : 'success'} infoKey="totalAgencyCost" onInfoClick={handleInfoClick}/>
-                     <div className="grid grid-cols-2 gap-4">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Fee as % of Spend" value={formatPercent(calculations.feePercentageOfSpend)} />
                         <MetricCard title="Fee as % of Revenue" value={formatPercent(calculations.feePercentageOfRevenue)} />
                     </div>

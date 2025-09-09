@@ -139,9 +139,9 @@ const EcommerceCalculator: React.FC = () => {
     return (
         <>
         {modalContent && <InfoModal content={modalContent} onClose={() => setModalContent(null)} />}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {/* Input Section */}
-            <div className="lg:col-span-3 space-y-6">
+            <div className="md:col-span-3 space-y-6">
                 <Card title="Revenue Metrics">
                     <div className="grid md:grid-cols-2 gap-4">
                         <Input label="Average Order Value (AOV)" name="aov" type="number" value={inputs.aov} onChange={handleInputChange} unit="$" infoKey="aov" onInfoClick={handleInfoClick}/>
@@ -163,7 +163,7 @@ const EcommerceCalculator: React.FC = () => {
                     </Select>
                      {inputs.paymentProcessingType === 'custom_percent' && <Input label="Custom %" name="paymentProcessingCustomPercent" type="number" value={inputs.paymentProcessingCustomPercent} onChange={handleInputChange} unit="%" unitPosition='right'/>}
                      {inputs.paymentProcessingType === 'flat_fee' && <Input label="Flat Fee $" name="paymentProcessingCustomFee" type="number" value={inputs.paymentProcessingCustomFee} onChange={handleInputChange} unit="$" />}
-                     <div className="grid grid-cols-2 gap-4 items-end">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
                         <Input label="Returns/warranty allowance" name="returnsAllowance" type="number" value={inputs.returnsAllowance} onChange={handleInputChange} unit={inputs.returnsAllowanceType === 'amount' ? '$' : '%'} unitPosition={inputs.returnsAllowanceType === 'amount' ? 'left' : 'right'} infoKey="returnsAllowance" onInfoClick={handleInfoClick} />
                          <Select label="Type" name="returnsAllowanceType" value={inputs.returnsAllowanceType} onChange={handleInputChange}>
                             <option value="percentage">% of AOV</option>
@@ -193,24 +193,24 @@ const EcommerceCalculator: React.FC = () => {
             </div>
 
             {/* Output Section */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="md:col-span-2 space-y-6">
                 <Card title="Reality Check">
                     <MetricCard title="Profit / Loss per month" value={formatCurrency(calculations.profit)} status={calculations.profitStatus} infoKey="profitLoss" onInfoClick={handleInfoClick} />
                     <Alert message={calculations.profit > 0 ? "Profitable! Your campaigns are generating a positive return." : calculations.profit === 0 ? "Break-even. You are not making or losing money." : "Losing Money. Your campaigns are costing more than they generate."} type={calculations.profitStatus} />
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Platform ROAS" value={`${formatNumber(calculations.platformROAS)}x`} infoKey="platformROAS" onInfoClick={handleInfoClick} />
                         <MetricCard title="MER" value={`${formatNumber(calculations.mer)}x`} status={calculations.mer > calculations.breakEvenROAS ? 'success' : 'danger'} infoKey="mer" onInfoClick={handleInfoClick} />
                     </div>
                 </Card>
                 <Card title="Unit Economics">
-                     <div className="grid grid-cols-2 gap-4">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Contribution per order" value={formatCurrency(calculations.contributionPerOrderPreAds)} infoKey="contributionPerOrder" onInfoClick={handleInfoClick} />
                         <MetricCard title="Contribution margin" value={formatPercent(calculations.contributionMargin)} infoKey="contributionMargin" onInfoClick={handleInfoClick} />
                     </div>
                 </Card>
                 <Card title="Break-Even Targets">
                     <MetricCard title="Break-even ROAS" value={`${formatNumber(calculations.breakEvenROAS)}x`} status="warning" infoKey="breakEvenROAS" onInfoClick={handleInfoClick} />
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <MetricCard title="Maximum CPA" value={formatCurrency(calculations.maxCPA)} infoKey="maxCPA" onInfoClick={handleInfoClick} />
                         <MetricCard title="Maximum CPC" value={formatCurrency(calculations.maxCPC)} infoKey="maxCPC" onInfoClick={handleInfoClick} />
                     </div>
